@@ -1,0 +1,26 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(project(":hello"))
+    implementation 'io.grpc:grpc-api:1.78.0'
+}
+
+application {
+    mainClass = 'com.example.hello.HelloClient'
+}
+
+configurations {
+    appDist
+}
+
+artifacts {
+    appDist(tasks.named("installDist").map { it.destinationDir }){
+       type = "directory"
+    }
+}

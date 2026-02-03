@@ -1,0 +1,33 @@
+plugins {
+    id("com.netflix.nebula.ospackage") version "12.2.0"
+    id 'application'
+}
+
+dependencies {
+    runtimeOnly(project(path: ":client", configuration: "appDist"))
+    runtimeOnly(project(path: ":server", configuration: "appDist"))
+}
+
+
+
+tasks.register("createRpm", Rpm) {
+    packageName = "grpc-hello"
+    version = project.version
+    release = "1"
+
+    os = LINUX
+    arch = X86_64
+
+    from(configurations.runtimeClasspath) {
+        eachFile { FileCopyDetails d ->
+            def appName = d.file.parentFile.parentFile.name
+            println(d.path)
+            d.path = "${appName}/${d.path}"
+
+
+            //into appName
+        }
+    }
+
+    into "/opt/my-suite"
+}

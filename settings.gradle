@@ -1,0 +1,10 @@
+plugins {
+    id("com.autonomousapps.build-health") version "3.5.1"
+}
+
+rootProject.name = 'grpc-hello'
+
+include 'server'
+include 'client'
+include 'hello'
+include 'package'
